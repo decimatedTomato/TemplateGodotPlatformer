@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://cghrhurh0g7yu"]
+
+[ext_resource type="Texture2D" uid="uid://bje7sabgl3pt5" path="res://sprites/Hero.png" id="1_jny3c"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_wmj5m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvu7j"]
+size = Vector2(13, 14)
+
+[sub_resource type="Animation" id="Animation_bnmsg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_jny3c")]
+}
+
+[sub_resource type="Animation" id="Animation_1f4o1"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_jny3c")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q4c4n"]
+_data = {
+"RESET": SubResource("Animation_bnmsg"),
+"idle": SubResource("Animation_1f4o1")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_wmj5m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qvu7j")
+
+[node name="PlayerSkin" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerSkin"]
+libraries = {
+"": SubResource("AnimationLibrary_q4c4n")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerSkin"]
+position = Vector2(1.5, -1)
+texture = ExtResource("1_jny3c")
+
+[node name="RightOuterCast" type="RayCast2D" parent="."]
+position = Vector2(6, 0)
+target_position = Vector2(0, -10)
+
+[node name="RightInnerCast" type="RayCast2D" parent="."]
+position = Vector2(1.5, 0)
+target_position = Vector2(0, -10)
+
+[node name="LeftInnerCast" type="RayCast2D" parent="."]
+position = Vector2(-1.5, 0)
+target_position = Vector2(0, -10)
+
+[node name="LeftOuterCast" type="RayCast2D" parent="."]
+position = Vector2(-6, 0)
+target_position = Vector2(0, -10)

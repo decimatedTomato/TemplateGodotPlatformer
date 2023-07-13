@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://daf1alr6udqg6"]
+
+[ext_resource type="Texture2D" uid="uid://sehcqkmvbmnm" path="res://sprites/Ground tilemap.png" id="1_iokvv"]
+[ext_resource type="PackedScene" uid="uid://cghrhurh0g7yu" path="res://scenes/player.tscn" id="2_ma0c3"]
+[ext_resource type="PackedScene" uid="uid://bc0veabndi642" path="res://scenes/DeathBox.tscn" id="3_7nwgk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rgpnp"]
+texture = ExtResource("1_iokvv")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -1, 8, -1, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_56gwt"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_rgpnp")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(250, -50)
+zoom = Vector2(2.416, 2.416)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_56gwt")
+format = 2
+layer_0/tile_data = PackedInt32Array(131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0, 131090, 0, 0, 131091, 0, 0, 131092, 0, 0, 131093, 0, 0, 131094, 0, 0, 65540, 65536, 0, 65541, 65536, 0, 65542, 65536, 0, 65543, 65536, 0, 65544, 65536, 0, 65545, 65536, 0, 65547, 65536, 0, 65548, 65536, 0, 65549, 65536, 0, 65550, 65536, 0, 65551, 65536, 0, 65552, 65536, 0, 65553, 65536, 0, 65554, 65536, 0, 65555, 65536, 0, 65556, 65536, 0, 65557, 65536, 0, 65558, 65536, 0, -131058, 0, 0, -131057, 0, 0, -196594, 0, 0, -196593, 0, 0, -262126, 65536, 0, -262125, 65536, 0, -262124, 65536, 0, -196590, 0, 0, -196589, 0, 0, -196588, 0, 0, -131053, 0, 0, -262120, 0, 0, -262119, 0, 0, -262118, 0, 0, -458730, 0, 0, -524269, 0, 0, -589808, 0, 0, -524288, 65536, 0, -524287, 65536, 0, -524286, 65536, 0, -524285, 65536, 0, -524284, 65536, 0, -524283, 65536, 0, -524282, 65536, 0, -524281, 65536, 0, -524280, 65536, 0, -524279, 65536, 0, -524278, 65536, 0, -524277, 65536, 0, -458751, 0, 0, -393214, 0, 0, -458750, 0, 0, -458749, 0, 0, -458748, 0, 0, -458747, 0, 0, -458746, 0, 0, -458745, 0, 0, -458744, 0, 0, -458743, 0, 0, -458742, 0, 0, -393207, 0, 0, -393208, 0, 0, -393209, 0, 0, -393210, 0, 0, -393211, 0, 0, -393212, 0, 0, -393213, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_ma0c3")]
+position = Vector2(100, 0)
+
+[node name="DeathBox" parent="." instance=ExtResource("3_7nwgk")]
+position = Vector2(250, 110)
+scale = Vector2(100, 1)
+
+[connection signal="body_entered" from="DeathBox" to="Player" method="_on_death_box_body_entered"]
